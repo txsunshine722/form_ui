@@ -8,16 +8,21 @@
 <body>
     <div class="container">
         <form action="/action_page.php">
+
+            <label for="form-progress">Progress:</label>
+            <progress id="form-progress" value="70" max="100">70%</progress>
+
             <label for="name">Full Name:</label>
             <input type="text" id="name" name="name" required>
             
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
-            
-            <label for="psw">Password:</label>
-            <input type="password" id="psw" name="psw" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-
+            <div class="password-wrapper">
+                <label for="psw">Password:</label>          
+                <input type="password" id="psw" name="psw" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                <button type="button" id="togglePassword">Show Password</button>
+            </div>
             
             <label for="password-confirm">Confirm Password:</label>
             <input type="password" id="password-confirm" name="password-confirm" placeholder="Confirm Password" required>
