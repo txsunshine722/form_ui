@@ -1,21 +1,115 @@
-* {
-    background-color: lightblue;
-    
+body {
+    background-color: #2f4858;
+    color: #1f2933;
 }
 
 form {
     background-color: white;
+    color: #1f2933;
     padding: 20px;
     border-radius: 5px;
     width: 300px;
-    margin: 50px auto;
+    margin: 50px auto 0;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: 1fr; /* Label width based on text, input takes remaining space */;
+    gap: 1rem; /* Adds consistent spacing between rows and columns */
+    align-items: center; /* Vertically centers the labels with their inputs */
+    font-size: 18px;
 }
 
+.container {
+    display: grid;
+}
 
 label {
-    color: black;
+    color: #1f2933;
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
+}
+
+#message {
+    display: block;
+    font-size: 12px;
+    width: 300px;
+    line-height: 1.1;
+    margin: 10px auto 0;
+    padding-top: 4px;
+    color: #111111;
+    background-color: #ffffff;
+    border-radius: 5px;
+    text-align: left;
+
+}
+
+label {
+    border-radius: 5px;
+    padding: 5px;
+    
+}
+
+input {
+    border: 1px solid #5f6b7a;
+    border-radius: 5px;
+    background-color: #f3f5f7;
+    color: #111111;
+    padding: 5px;
+}
+
+input:focus-visible {
+    outline: 3px solid #0b5fff;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(11, 95, 255, 0.2);
+}
+
+.progress {
+    padding: 1px;
+    margin: 2px;
+    border-radius: 5px;
+    background-color: #e6ebf0;
+}
+
+.submit {
+    border: 1px solid #0847c7;
+    background-color: #0b5fff;
+    color: #ffffff;
+}
+
+.submit:hover {
+    cursor: pointer;
+    background-color: #0847c7;
+
+
+}
+
+#togglePassword {
+    border: 1px solid #0847c7;
+    border-radius: 5px;
+    background-color: #0b5fff;
+    color: #ffffff;
+    padding: 5px;
+}
+
+#togglePassword:hover {
+    cursor: pointer;
+    background-color: #0847c7; 
+    
+}
+
+#togglePassword:focus-visible {
+    outline: 3px solid #111111;
+    outline-offset: 2px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }

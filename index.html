@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form UI</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="container">
         <form action="/action_page.php">
-
-            <label for="form-progress">Progress:</label>
-            <progress id="form-progress" value="70" max="100">70%</progress>
+            <div class = "progress">
+                <label for="form-progress">Progress:</label>
+                <progress id="form-progress" value="70" max="100">70%</progress>
+            </div>
+            
+            <div class= "information"></div>
 
             <label for="name">Full Name:</label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="name" pattern="[A-Za-z ]+" title="Name can only contain letters and spaces" required>
             
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
@@ -21,24 +25,70 @@
                 <label for="psw">Password:</label>          
                 <input type="password" id="psw" name="psw" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
                 title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-                <button type="button" id="togglePassword">Show Password</button>
+                <button type="button" id="togglePassword" aria-controls="psw" aria-pressed="false" aria-describedby="password-visibility-status">Show Password</button>
+                <p id="password-visibility-status" class="sr-only" role="status" aria-live="polite">Password is hidden.</p>
             </div>
             
             <label for="password-confirm">Confirm Password:</label>
             <input type="password" id="password-confirm" name="password-confirm" placeholder="Confirm Password" required>
             
-            <label for="submit">Update Profile</label>
-            <input type="submit" value="Submit">
-            
         
+            <input class="submit" type="submit" value="Submit">
+        </form>
+
+         <div id="message">
+            <h3>Password must contain the following:</h3>
+            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+            <p id="capital" class="invalid">A <b>uppercase</b> letter</p>
+            <p id="number" class="invalid">A <b>number</b></p>
+            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+        </div>
+        
+    
+    
     </div>
 
-    <div id="message">
-        <h3>Password must contain the following:</h3>
-        <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-        <p id="capital" class="invalid">A <b>uppercase</b> letter</p>
-        <p id="number" class="invalid">A <b>number</b></p>
-        <p id="length" class="invalid">Minimum <b>8 characters</b></p>
-    </div>
+    <script>
+        const form = document.querySelector("form");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("psw");
+        const togglePasswordButton = document.getElementById("togglePassword");
+        const passwordVisibilityStatus = document.getElementById("password-visibility-status");
+
+        // Demo list for client-side validation. Replace with a server check in production.
+        const takenEmails = new Set([
+            "test@example.com",
+            "admin@example.com",
+            "user@example.com"
+        ]);
+
+        function validateEmailAvailability() {
+            const value = emailInput.value.trim().toLowerCase();
+
+            if (value && takenEmails.has(value)) {
+                emailInput.setCustomValidity("This email is already taken. Please use a different one.");
+            } else {
+                emailInput.setCustomValidity("");
+            }
+        }
+
+        emailInput.addEventListener("blur", validateEmailAvailability);
+        emailInput.addEventListener("input", validateEmailAvailability);
+
+        togglePasswordButton.addEventListener("click", function () {
+            const isHidden = passwordInput.type === "password";
+
+            passwordInput.type = isHidden ? "text" : "password";
+            togglePasswordButton.textContent = isHidden ? "Hide Password" : "Show Password";
+            togglePasswordButton.setAttribute("aria-pressed", String(isHidden));
+            passwordVisibilityStatus.textContent = isHidden ? "Password is visible." : "Password is hidden.";
+        });
+
+        form.addEventListener("submit", function () {
+            validateEmailAvailability();
+            emailInput.reportValidity();
+        });
+    </script>
+
   </body>
 </html>
